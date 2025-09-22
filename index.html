@@ -29,17 +29,16 @@
 <body>
   <div id="app"></div>
   <script>
-    // Do NOT change ENV attributes without changing them in scripts/inject-dynamic-env.sh as well
     const ENV = {
       REQUIRE_HTTPS_URL_PATTERN: "true",
       CLEARINGHOUSE_CONNECT_DISABLED: "false",
-      PORTAL_ASSETS_URL: "http://localhost:3000/assets",
-      PORTAL_BACKEND_URL: "https://portal-backend.example.org",
-      CENTRALIDP_URL: "https://centralidp.example.org/auth",
-      SSI_CREDENTIAL_URL: "https://ssi-credential-issuer.example.org",
-      BPDM_POOL_API_URL: "https://business-partners.example.org/pool/v6",
-      BPDM_GATE_API_URL: "https://business-partners.example.org/companies/test-company/v6",
-      SEMANTICS_URL: "https://semantics.example.org",
+      PORTAL_ASSETS_URL: "http://localhost:3003/assets",
+      PORTAL_BACKEND_URL: "http://localhost:8000",
+      CENTRALIDP_URL: "https://centralidp.b.dsaas.tvsdevops.co.uk/auth",
+      SSI_CREDENTIAL_URL: "https://ssi-credential-issuer.b.dsaas.tvsdevops.co.uk",
+      BPDM_POOL_API_URL: "https://business-partners.b.dsaas.tvsdevops.co.uk/pool/v6",
+      BPDM_GATE_API_URL: "https://business-partners.b.dsaas.tvsdevops.co.uk/companies/test-company/v6",
+      SEMANTICS_URL: "https://semantics.b.dsaas.tvsdevops.co.uk",
       MANAGED_IDENTITY_WALLETS_NEW_URL: "https://managed-identity-wallets-new.example.org",
       REALM: "CX-Central",
       CLIENT_ID: "Cl2-CX-Portal",
@@ -49,7 +48,7 @@
       CLIENT_ID_MIW: "Cl5-CX-Custodian",
       CLIENT_ID_SSI_CREDENTIAL: "Cl24-CX-SSI-CredentialIssuer"
     }
-  </script>
+  </script>  
   <script type="module" src="/src/index.tsx"></script>
 </body>
 </html>
