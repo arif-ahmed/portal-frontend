@@ -21,13 +21,16 @@
 import { NavLink } from 'react-router-dom'
 import { Image } from '@catena-x/portal-shared-components'
 import { useLogo } from 'hooks/useBrandingAssets'
+import styles from './Logo.module.css'
 
 export const Logo = () => {
   const { logoUrl } = useLogo()
 
   return (
     <NavLink to="/">
-      <Image src={logoUrl} alt="Company Logo" />
+      <div className={styles.logoResponsive}>
+        <Image src={logoUrl} alt="Company Logo" />
+      </div>
     </NavLink>
   )
 }

@@ -1,0 +1,36 @@
+.logoResponsive {
+  display: flex;
+  align-items: center;
+  height: 60px; /* Fixed height for header logo */
+  padding-right: 20px; /* Space between logo and navigation */
+}
+
+.logoResponsive img {
+  max-height: 100%;
+  max-width: 200px; /* Reasonable max width */
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .logoResponsive {
+    height: 50px;
+    padding-right: 15px;
+  }
+
+  .logoResponsive img {
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 600px) {
+  .logoResponsive {
+    height: 40px;
+    padding-right: 10px;
+  }
+
+  .logoResponsive img {
+    max-width: 120px;
+  }
+}

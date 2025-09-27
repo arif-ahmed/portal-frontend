@@ -212,14 +212,14 @@ class BrandingAssetsService {
    */
   async getLogoUrl(): Promise<string> {
     try {
-      const logoAsset = await this.getAssetByType('logo')
-      const url = logoAsset?.url
-      return typeof url === 'string' && url.trim() !== ''
-        ? url
-        : '/assets/logo/cx-logo.svg' // fallback to static asset
+      const url = `${getApiBase()}/api/administration/branding/assets/logo`
+      // optional HEAD check
+      const head = await fetch(url, { method: 'GET' })
+      if (head.ok) return url
+      return '/assets/logo/cx-logo.svg' // fallback
     } catch (error) {
-      console.warn('Failed to fetch logo asset, using fallback:', error)
-      return '/assets/logo/cx-logo.svg' // fallback to static asset
+      console.warn('Failed to resolve logo url, fallback used:', error)
+      return '/assets/logo/cx-logo.svg'
     }
   }
 
@@ -228,14 +228,18 @@ class BrandingAssetsService {
    */
   async getFooterText(): Promise<string> {
     try {
-      const footerAsset = await this.getAssetByType('footer')
-      const text = footerAsset?.text
-      return typeof text === 'string' && text.trim() !== ''
-        ? text
-        : '© 2024 Eclipse Tractus-X. All rights reserved.' // fallback text
+      const url = `${getApiBase()}/api/administration/branding/assets/footer`
+      const res = await fetch(url)
+      if (res.status === 404)
+        return '© 2024 Eclipse Tractus-X. All rights reserved.'
+      if (!res.ok) return '© 2024 Eclipse Tractus-X. All rights reserved.'
+      const txt = await res.text()
+      return txt?.trim() !== ''
+        ? txt
+        : '© 2024 Eclipse Tractus-X. All rights reserved.'
     } catch (error) {
-      console.warn('Failed to fetch footer asset, using fallback:', error)
-      return '© 2024 Eclipse Tractus-X. All rights reserved.' // fallback text
+      console.warn('Failed to fetch footer text, fallback used:', error)
+      return '© 2024 Eclipse Tractus-X. All rights reserved.'
     }
   }
 
