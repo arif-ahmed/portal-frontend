@@ -34,6 +34,7 @@ import {
 } from '@catena-x/portal-shared-components'
 import type { MenuItem, Tree } from 'types/MainTypes'
 import { getAssetBase } from 'services/EnvironmentService'
+import { useLogo } from 'hooks/useBrandingAssets'
 import {
   ApplicationStatus,
   useFetchApplicationsQuery,
@@ -65,6 +66,7 @@ export const Header = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('md'), {
     defaultMatches: true,
   })
+  const { logoUrl } = useLogo()
 
   const visible = useSelector(appearSearchSelector)
   const appearShow = useSelector(appearMenuSelector)
@@ -202,7 +204,15 @@ export const Header = ({
       </header>
       <div className="mobileNav">
         <div className="mobileHeader">
-          <img src={`${getAssetBase()}/images/logos/cx-short.svg`} alt="logo" />
+          <img
+            src={logoUrl || `${getAssetBase()}/images/logos/cx-short.svg`}
+            alt="Company Logo"
+            onError={(e) => {
+              // Fallback in case the dynamic logo fails to load
+              const target = e.target as HTMLImageElement
+              target.src = `${getAssetBase()}/images/logos/cx-short.svg`
+            }}
+          />
         </div>
         <div className="mobileHeaderRight">
           <div

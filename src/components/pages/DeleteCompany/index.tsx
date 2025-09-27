@@ -22,6 +22,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { uniqueId } from 'lodash'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import { getAssetBase } from 'services/EnvironmentService'
+import { useLogo } from 'hooks/useBrandingAssets'
 import {
   Button,
   CircleProgress,
@@ -37,6 +38,7 @@ import './style.scss'
 
 export default function DeleteCompany() {
   const { t } = useTranslation()
+  const { logoUrl } = useLogo()
 
   const [initialPage, setInitialPage] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
@@ -101,8 +103,13 @@ export default function DeleteCompany() {
           <div className="container">
             <div className="logo text-center">
               <img
-                src={`${getAssetBase()}/images/logos/cx-text.svg`}
-                alt="logo"
+                src={logoUrl || `${getAssetBase()}/images/logos/cx-text.svg`}
+                alt="Company Logo"
+                onError={(e) => {
+                  // Fallback in case the dynamic logo fails to load
+                  const target = e.target as HTMLImageElement
+                  target.src = `${getAssetBase()}/images/logos/cx-text.svg`
+                }}
               />
             </div>
             {initialPage && (

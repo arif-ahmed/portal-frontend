@@ -29,10 +29,12 @@ import './style.scss'
 import { PAGES } from 'types/Constants'
 import { currentActiveStep } from 'features/appManagement/slice'
 import { useSelector } from 'react-redux'
+import { useFooter } from 'hooks/useBrandingAssets'
 
 export const Footer = ({ pages }: { pages: string[] }) => {
   const { t } = useTranslation()
   const location = useLocation()
+  const { footerText } = useFooter()
   const items = pages.map((page) => ({
     to: page,
     title: t(`pages.${page}`),
@@ -93,7 +95,9 @@ export const Footer = ({ pages }: { pages: string[] }) => {
       />
       <div className="footer-content">
         <Navigation unstyled items={items} component={NavLink} />
-        <span className="copyright">{`${t('content.footer.copyright')}`}</span>
+        <span className="copyright">
+          {footerText || t('content.footer.copyright')}
+        </span>
       </div>
     </footer>
   )

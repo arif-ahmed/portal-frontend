@@ -24,6 +24,7 @@ import {
 } from 'features/compayWallet/companyWalletApiSlice'
 import dayjs from 'dayjs'
 import { useTranslation } from 'react-i18next'
+import { useLogo } from 'hooks/useBrandingAssets'
 import './style.scss'
 
 export default function WalletCard({
@@ -34,6 +35,7 @@ export default function WalletCard({
   readonly isError: boolean
 }): JSX.Element {
   const { t } = useTranslation()
+  const { logoUrl } = useLogo()
 
   const status = wallet?.status === CredentialSubjectStatus.ACTIVE
 
@@ -97,10 +99,15 @@ export default function WalletCard({
           <div className="icon-text">
             <div className="icon">
               <img
-                src="/cx-logo.svg"
-                alt="cx logo"
+                src={logoUrl || '/cx-logo.svg'}
+                alt="Company Logo"
                 style={{
                   width: 40,
+                }}
+                onError={(e) => {
+                  // Fallback in case the dynamic logo fails to load
+                  const target = e.target as HTMLImageElement
+                  target.src = '/cx-logo.svg'
                 }}
               />
             </div>
